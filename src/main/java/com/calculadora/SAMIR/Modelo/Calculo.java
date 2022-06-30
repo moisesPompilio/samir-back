@@ -1,5 +1,7 @@
 package com.calculadora.SAMIR.Modelo;
 
+import org.apache.commons.math3.util.Precision;
+
 public class Calculo {
 
 	private String data;
@@ -60,14 +62,15 @@ public class Calculo {
 	}
 	public Calculo(String data, float reajusteAcumulado, float salario, float correcao, float juros) {
 		super();
+		
 		this.data = data;
 		this.reajusteAcumulado = reajusteAcumulado;
 		this.salario = salario;
 		this.correcao = correcao;
-		this.salarioCorrigido = salario * correcao;
+		this.salarioCorrigido = Precision.round((salario * correcao),2);
 		this.juros = juros / 100;
-		this.salarioJuros = salario * correcao * juros / 100;
-		this.salarioTotal = (salario * correcao * juros / 100) + (salario * correcao);
+		this.salarioJuros = Precision.round((salario * correcao * juros / 100),2);
+		this.salarioTotal = Precision.round((this.salarioCorrigido + this.salarioJuros),2);
 	}
 	
 }
