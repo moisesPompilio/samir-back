@@ -225,7 +225,7 @@ public class CalcauloController {
 
 					correcaoAcumulada = calculoCorrecao(mesCalculo, anoCalculo, listCorrecao, mesAtualizacao,
 							anoAtualizacao, dateFormat);
-
+					
 					// estancia o objeto e adiciona na lista
 					Calculo calculoAdd = new Calculo(dataCalculo, 0, 0, correcaoAcumulada, 0);
 					listCalculo.add(calculoAdd);
@@ -450,6 +450,16 @@ public class CalcauloController {
 				String[] data = dateFormat.format(listCorrecao.get(indexCorrecao).getData()).split(" ")[0].split("-");
 				int mesCorrecao = Integer.parseInt(data[1]);
 				int anoCorrecao = Integer.parseInt(data[0]);
+				if(mesCalculo == 2 && anoCalculo == 2022 && anoCorrecao > 2021){
+					System.out.println("correcao acumuulada: " + correcaoAcumulada);
+					System.out.println("correcao acumuulada: " + mesAtualizacao);
+					System.out.println("correcao acumuulada: " + anoAtualizacao);
+					System.out.println("correcao acumuulada: " + mesAtualizacao);
+					System.out.println("correcao acumuulada: " + anoAtualizacao);
+					System.out.println("teste mes: " + mesCorrecao);
+					System.out.println("teste ano: " + anoCorrecao);
+					System.out.println("teste boolean: " + (mesCorrecao == mesCalculo && anoCalculo == anoCorrecao));
+				}
 				if (verificarPeriodo(mesCorrecao, anoCorrecao, mesAtualizacao, anoAtualizacao)) {
 					correcaoAcumulada *= listCorrecao.get(indexCorrecao).getTaxaCorrecao();
 				}
