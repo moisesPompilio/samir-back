@@ -50,9 +50,22 @@ public class CalculoEmLote {
 
     //    @JoinColumn(name = "beneficio_acumulados")
 //    private BeneficioAcumulado[] beneficioAcumulados;
+//testa
     private String honorarioAdvocativosData;
     private float  honorariosAdvocativos;
+    private String textoHonorarios;
+    private String decricaoJuros;
+    private String descricaoCorrecao;
+    private float alcadaValor;
+    private float salariominimosAlcada;
+    private float alcadaJuros;
+    private float alcadaCorrecao;
+    private float alcadaTotal;
+    private String textoPeriodoAlcada;
+    private float alcadaJurosPorcentagem;
+    private float alcadaCorrecaoPorcetagem;
     private float acordo;
+
     private int tipoJuros;
     private int tipoCorrecao;
     private boolean possuiDecimoTerceiro;
@@ -456,6 +469,94 @@ public class CalculoEmLote {
 
     public void setPacelasVencidas(float pacelasVencidas) {
         this.pacelasVencidas = pacelasVencidas;
+    }
+
+    public String getTextoHonorarios() {
+        return textoHonorarios;
+    }
+
+    public void setTextoHonorarios(String textoHonorarios) {
+        this.textoHonorarios = textoHonorarios;
+    }
+
+    public String getDecricaoJuros() {
+        return decricaoJuros;
+    }
+
+    public void setDecricaoJuros(String decricaoJuros) {
+        this.decricaoJuros = decricaoJuros;
+    }
+
+    public String getDescricaoCorrecao() {
+        return descricaoCorrecao;
+    }
+
+    public void setDescricaoCorrecao(String descricaoCorrecao) {
+        this.descricaoCorrecao = descricaoCorrecao;
+    }
+
+    public float getAlcadaValor() {
+        return alcadaValor;
+    }
+
+    public void setAlcadaValor(float alcadaValor) {
+        this.alcadaValor = alcadaValor;
+    }
+
+    public float getSalariominimosAlcada() {
+        return salariominimosAlcada;
+    }
+
+    public void setSalariominimosAlcada(float salariominimosAlcada) {
+        this.salariominimosAlcada = salariominimosAlcada;
+    }
+
+    public float getAlcadaJuros() {
+        return alcadaJuros;
+    }
+
+    public void setAlcadaJuros(float alcadaJuros) {
+        this.alcadaJuros = alcadaJuros;
+    }
+
+    public float getAlcadaCorrecao() {
+        return alcadaCorrecao;
+    }
+
+    public void setAlcadaCorrecao(float alcadaCorrecao) {
+        this.alcadaCorrecao = alcadaCorrecao;
+    }
+
+    public float getAlcadaTotal() {
+        return alcadaTotal;
+    }
+
+    public void setAlcadaTotal(float alcadaTotal) {
+        this.alcadaTotal = alcadaTotal;
+    }
+
+    public String getTextoPeriodoAlcada() {
+        return textoPeriodoAlcada;
+    }
+
+    public void setTextoPeriodoAlcada(String textoPeriodoAlcada) {
+        this.textoPeriodoAlcada = textoPeriodoAlcada;
+    }
+
+    public float getAlcadaJurosPorcentagem() {
+        return alcadaJurosPorcentagem;
+    }
+
+    public void setAlcadaJurosPorcentagem(float alcadaJurosPorcentagem) {
+        this.alcadaJurosPorcentagem = alcadaJurosPorcentagem;
+    }
+
+    public float getAlcadaCorrecaoPorcetagem() {
+        return alcadaCorrecaoPorcetagem;
+    }
+
+    public void setAlcadaCorrecaoPorcetagem(float alcadaCorrecaoPorcetagem) {
+        this.alcadaCorrecaoPorcetagem = alcadaCorrecaoPorcetagem;
     }
 
 
