@@ -107,7 +107,7 @@ public class CalcauloController {
 						reajuste = reajusteAcumulado;
 					}
 					// verifica se no calculo tem o juros
-					if (informacoes.isJuros() || informacoes.getIncioJuros() != null) {
+					if (informacoes.isJuros() && informacoes.getIncioJuros() != null) {
 						jurosAcumulado = calculoJuros(mesCalculo, anoCalculo, listJuros, mesAtualizacao, anoAtualizacao,
 								mesIncioJuros, anoIncioJuros, dateFormat);
 					}
