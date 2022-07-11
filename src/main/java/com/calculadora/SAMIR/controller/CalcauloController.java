@@ -276,7 +276,6 @@ public class CalcauloController {
 
 			List<Calculo> listCalculo = new ArrayList<Calculo>();
 			
-			int contadorMes13salrio = 1;
 
 			List<SalarioMinimo> listaSalarioMinimo = new ArrayList<SalarioMinimo>();
 			if (informacoes.isSalarioMinimo() || informacoes.isLimiteMinimoMaximo()) {
@@ -310,7 +309,7 @@ public class CalcauloController {
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
 					if(informacoes.isSalario13()) {
-						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, contadorMes13salrio, 0, 0);
+						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, 12, 0, 0);
 						if(calculoAdd != null) {
 							if(anoCalculo == anoDip && mesCalculo == mesDip) {
 								int diaDip = Integer.parseInt(arrayDip[0]);
@@ -320,36 +319,11 @@ public class CalcauloController {
 							}else {
 								listCalculo.add(calculoAdd);
 							}
-							contadorMes13salrio = 1;
-						}else {
-							if(anoCalculo == anoDib && mesCalculo == mesDib) {
-								int diaDib = Integer.parseInt(arrayDib[0]);
-								if(diaDib <= 15) {
-									contadorMes13salrio ++;
-								}
-							}else {
-								contadorMes13salrio ++;
-							}
 						}
 					}
 					// para o calculo
 					if (mesDip == mesCalculo && anoCalculo == anoDip) {
-						float salario = listCalculo.get(listCalculo.size() - 1).getSalario() / 30;
-						int dia = Integer.parseInt(arrayDip[0]);
-						if(dia > 30) {
-							dia = 30;
-						}
-						listCalculo.get(listCalculo.size() - 1).setSalario(salario * dia);
 						return listCalculo;
-					}
-					if(confirmadoData == 0) {
-						float salario = listCalculo.get(0).getSalario() / 30;
-						int dia = Integer.parseInt(arrayDib[0]);
-						if(dia > 30) {
-							dia = 30;
-						}
-						dia = ((dia - 30) * -1) + 1;
-						listCalculo.get(0).setSalario(salario * dia);
 					}
 					// verifica a data para fazer o colocar o reajuste
 					if (mesCalculo == 1 || confirmadoData == 0) {
