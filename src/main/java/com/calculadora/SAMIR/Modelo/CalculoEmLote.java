@@ -76,6 +76,7 @@ public class CalculoEmLote {
     private int usuario;
     private String atualizacao;
     private String dibAnterior;
+    private String url;
 
     public int getUsuario() {
         return usuario;
@@ -557,6 +558,14 @@ public class CalculoEmLote {
 
     public void setAlcadaCorrecaoPorcetagem(float alcadaCorrecaoPorcetagem) {
         this.alcadaCorrecaoPorcetagem = alcadaCorrecaoPorcetagem;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 
