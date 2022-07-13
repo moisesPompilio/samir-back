@@ -41,9 +41,9 @@ public class CalcauloController {
 	@PostMapping("/calcular")
 	public @ResponseBody Object calcular(@RequestBody InfoCalculo informacoes) {
 		try {
-//			System.out.println("AQUI");
-//			System.out.println(informacoes);
-//			System.out.println("salario: " + informacoes.getAtulizacao());
+			// System.out.println("AQUI");
+			// System.out.println(informacoes);
+			// System.out.println("salario: " + informacoes.getAtulizacao());
 			String[] arrayDib = informacoes.getDib().split("/");
 			int mesDib = Integer.parseInt(arrayDib[1]);
 			int anoDib = Integer.parseInt(arrayDib[2]);
@@ -117,7 +117,7 @@ public class CalcauloController {
 					if (informacoes.isSalarioMinimo()
 							|| rmi < salarioMinimo(mesCalculo, anoCalculo, dateFormat, listaSalarioMinimo)) {
 						rmi = salarioMinimo(mesCalculo, anoCalculo, dateFormat, listaSalarioMinimo);
-						if(informacoes.isSalarioMinimo() == false){
+						if (informacoes.isSalarioMinimo() == false) {
 							informacoes.setSalarioMinimo(true);
 						}
 					}
@@ -126,26 +126,27 @@ public class CalcauloController {
 					Calculo calculoAdd = new Calculo(dataCalculo, reajuste, rmi, correcaoAcumulada, jurosAcumulado);
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
-					if(informacoes.isSalario13()) {
-						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, contadorMes13salrio, correcaoAcumulada, jurosAcumulado);
-						if(calculoAdd != null) {
-							if(anoCalculo == anoDip && mesCalculo == mesDip) {
+					if (informacoes.isSalario13()) {
+						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, contadorMes13salrio, correcaoAcumulada,
+								jurosAcumulado);
+						if (calculoAdd != null) {
+							if (anoCalculo == anoDip && mesCalculo == mesDip) {
 								int diaDip = Integer.parseInt(arrayDip[0]);
-								if(diaDip == 31) {
+								if (diaDip == 31) {
 									listCalculo.add(calculoAdd);
 								}
-							}else {
+							} else {
 								listCalculo.add(calculoAdd);
 							}
 							contadorMes13salrio = 1;
-						}else {
-							if(anoCalculo == anoDib && mesCalculo == mesDib) {
+						} else {
+							if (anoCalculo == anoDib && mesCalculo == mesDib) {
 								int diaDib = Integer.parseInt(arrayDib[0]);
-								if(diaDib <= 15) {
-									contadorMes13salrio ++;
+								if (diaDib <= 15) {
+									contadorMes13salrio++;
 								}
-							}else {
-								contadorMes13salrio ++;
+							} else {
+								contadorMes13salrio++;
 							}
 						}
 					}
@@ -154,21 +155,22 @@ public class CalcauloController {
 						return listCalculo;
 					}
 					// verifica a data para fazer o colocar o reajuste
-					if (mesCalculo == 1 ) {
+					if (mesCalculo == 1) {
 						reajusteAcumulado = calculoReajuste(mesCalculo, anoCalculo, listReajuste, dateFormat);
-					}else if(confirmadoData == 0) {
-						if(informacoes.getDibAnterior() != null) {
+					} else if (confirmadoData == 0) {
+						if (informacoes.getDibAnterior() != null) {
 							String[] arrayDibAnterior = informacoes.getDibAnterior().split("/");
 							int mesDibAnterio = Integer.parseInt(arrayDibAnterior[1]);
 							int anoDibAnterio = Integer.parseInt(arrayDibAnterior[2]);
-							if(anoDibAnterio < anoDib) {
+							if (anoDibAnterio < anoDib) {
 								reajusteAcumulado = calculoReajuste(1, anoCalculo, listReajuste, dateFormat);
-							}else if(anoDibAnterio == anoDib && mesDibAnterio < mesDib) {
-								reajusteAcumulado = calculoReajuste(mesDibAnterio , anoCalculo, listReajuste, dateFormat);
-							}else {
+							} else if (anoDibAnterio == anoDib && mesDibAnterio < mesDib) {
+								reajusteAcumulado = calculoReajuste(mesDibAnterio, anoCalculo, listReajuste,
+										dateFormat);
+							} else {
 								reajusteAcumulado = calculoReajuste(mesCalculo, anoCalculo, listReajuste, dateFormat);
 							}
-						}else {
+						} else {
 							reajusteAcumulado = calculoReajuste(mesCalculo, anoCalculo, listReajuste, dateFormat);
 						}
 					}
@@ -225,7 +227,7 @@ public class CalcauloController {
 
 					correcaoAcumulada = calculoCorrecao(mesCalculo, anoCalculo, listCorrecao, mesAtualizacao,
 							anoAtualizacao, dateFormat);
-					
+
 					// estancia o objeto e adiciona na lista
 					Calculo calculoAdd = new Calculo(dataCalculo, 0, 0, correcaoAcumulada, 0);
 					listCalculo.add(calculoAdd);
@@ -275,7 +277,6 @@ public class CalcauloController {
 			List<TaxaReajuste> listReajuste = reajusteRepositorio.findAll();
 
 			List<Calculo> listCalculo = new ArrayList<Calculo>();
-			
 
 			List<SalarioMinimo> listaSalarioMinimo = new ArrayList<SalarioMinimo>();
 			if (informacoes.isSalarioMinimo() || informacoes.isLimiteMinimoMaximo()) {
@@ -299,7 +300,7 @@ public class CalcauloController {
 					if (informacoes.isSalarioMinimo()
 							|| rmi < salarioMinimo(mesCalculo, anoCalculo, dateFormat, listaSalarioMinimo)) {
 						rmi = salarioMinimo(mesCalculo, anoCalculo, dateFormat, listaSalarioMinimo);
-						if(informacoes.isSalarioMinimo() == false){
+						if (informacoes.isSalarioMinimo() == false) {
 							informacoes.setSalarioMinimo(true);
 						}
 					}
@@ -308,15 +309,15 @@ public class CalcauloController {
 					Calculo calculoAdd = new Calculo(dataCalculo, reajuste, rmi, 0, 0);
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
-					if(informacoes.isSalario13()) {
+					if (informacoes.isSalario13()) {
 						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, 12, 0, 0);
-						if(calculoAdd != null) {
-							if(anoCalculo == anoDip && mesCalculo == mesDip) {
+						if (calculoAdd != null) {
+							if (anoCalculo == anoDip && mesCalculo == mesDip) {
 								int diaDip = Integer.parseInt(arrayDip[0]);
-								if(diaDip == 31) {
+								if (diaDip == 31) {
 									listCalculo.add(calculoAdd);
 								}
-							}else {
+							} else {
 								listCalculo.add(calculoAdd);
 							}
 						}
@@ -341,6 +342,38 @@ public class CalcauloController {
 
 			return listCalculo;
 
+		} catch (Exception e) {
+			System.err.println(e);
+			return e;
+		}
+	}
+
+	@PostMapping("/taxaUnica")
+	public Object taxaUnicoa(@RequestBody InfoCalculo informacoes) {
+		try {
+			String[] arrayDib = informacoes.getDib().split("/");
+			int mesDib = Integer.parseInt(arrayDib[1]);
+			int anoDib = Integer.parseInt(arrayDib[2]);
+			String[] arrayAtualizacao = informacoes.getAtulizacao().split("/");
+			int mesAtualizacao = Integer.parseInt(arrayAtualizacao[0]);
+			int anoAtualizacao = Integer.parseInt(arrayAtualizacao[1]);
+			List<TaxaDeCorrecao> listCorrecao = correcaoRepository
+					.findByTipoOrderByDataAsc(informacoes.getTipoCorrecao());
+			int mesIncioJuros = mesDib - 1;
+			int anoIncioJuros = anoDib;
+			if (mesIncioJuros == 0) {
+				mesIncioJuros = 12;
+				anoIncioJuros--;
+			}
+			List<Juros> listJuros = jurosRepositorio.findByTipoOrderByDataAsc(informacoes.getTipoJuros());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			float correcaoAcumulada = calculoCorrecao(mesDib, anoDib, listCorrecao, mesAtualizacao, anoAtualizacao,
+					dateFormat);
+			float jurosAcumulado = calculoJuros(mesDib, anoDib, listJuros, mesAtualizacao, anoAtualizacao,
+					mesIncioJuros, anoIncioJuros, dateFormat);
+			Calculo calculoAdd = new Calculo(informacoes.getDib(), 0, 0, correcaoAcumulada, jurosAcumulado);
+
+			return calculoAdd;
 		} catch (Exception e) {
 			System.err.println(e);
 			return e;
@@ -424,7 +457,7 @@ public class CalcauloController {
 				String[] data = dateFormat.format(listCorrecao.get(indexCorrecao).getData()).split(" ")[0].split("-");
 				int mesCorrecao = Integer.parseInt(data[1]);
 				int anoCorrecao = Integer.parseInt(data[0]);
-				if(mesCalculo == 2 && anoCalculo == 2022 && anoCorrecao > 2021){
+				if (mesCalculo == 2 && anoCalculo == 2022 && anoCorrecao > 2021) {
 					System.out.println("correcao acumuulada: " + correcaoAcumulada);
 					System.out.println("correcao acumuulada: " + mesAtualizacao);
 					System.out.println("correcao acumuulada: " + anoAtualizacao);
@@ -449,10 +482,11 @@ public class CalcauloController {
 
 	}
 
-	public Calculo salario13(int mesCalculo, int anoCalculo, float rmi, int contadorMes13salrio, float correcaoAcumulada, float jurosAcumulado) {
+	public Calculo salario13(int mesCalculo, int anoCalculo, float rmi, int contadorMes13salrio,
+			float correcaoAcumulada, float jurosAcumulado) {
 		Calculo salario13;
 		rmi = rmi * contadorMes13salrio / 12;
-		if(mesCalculo == 12) {
+		if (mesCalculo == 12) {
 			salario13 = new Calculo(("13Salario/12/" + anoCalculo), 1, rmi, correcaoAcumulada, jurosAcumulado);
 			return salario13;
 		}
