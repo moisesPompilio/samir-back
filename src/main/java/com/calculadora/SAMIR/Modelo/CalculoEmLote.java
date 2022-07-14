@@ -48,6 +48,11 @@ public class CalculoEmLote {
     private float valor_corrigido;
     private float valorHonorarios;
 
+    private float iPvalorAnoAnterior;
+    private float iPvalorAnoAtual;
+    private float competenciaAnoAnterior;
+    private float competenciaAnoAtual;
+    private float porcentagemRMI;
     //    @JoinColumn(name = "beneficio_acumulados")
 //    private BeneficioAcumulado[] beneficioAcumulados;
 //testa
@@ -566,6 +571,46 @@ public class CalculoEmLote {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public float getiPvalorAnoAnterior() {
+        return iPvalorAnoAnterior;
+    }
+
+    public void setiPvalorAnoAnterior(float iPvalorAnoAnterior) {
+        this.iPvalorAnoAnterior = iPvalorAnoAnterior;
+    }
+
+    public float getiPvalorAnoAtual() {
+        return iPvalorAnoAtual;
+    }
+
+    public void setiPvalorAnoAtual(float iPvalorAnoAtual) {
+        this.iPvalorAnoAtual = iPvalorAnoAtual;
+    }
+
+    public float getCompetenciaAnoAnterior() {
+        return competenciaAnoAnterior;
+    }
+
+    public void setCompetenciaAnoAnterior(float competenciaAnoAnterior) {
+        this.competenciaAnoAnterior = competenciaAnoAnterior;
+    }
+
+    public float getCompetenciaAnoAtual() {
+        return competenciaAnoAtual;
+    }
+
+    public void setCompetenciaAnoAtual(float competenciaAnoAtual) {
+        this.competenciaAnoAtual = competenciaAnoAtual;
+    }
+
+    public float getPorcentagemRMI() {
+        return porcentagemRMI;
+    }
+
+    public void setPorcentagemRMI(float porcentagemRMI) {
+        this.porcentagemRMI = porcentagemRMI;
     }
 
 

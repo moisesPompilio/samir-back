@@ -13,6 +13,7 @@ public class InfoCalculo {
 	private boolean salarioMinimo;
 	private boolean limiteMinimoMaximo;
 	private String dibAnterior;
+	private float porcentagemRMI;
 	public String getDib() {
 		return dib;
 	}
@@ -84,6 +85,12 @@ public class InfoCalculo {
 	}
 	public void setDibAnterior(String dibAnterior) {
 		this.dibAnterior = dibAnterior;
+	}
+	public float getPorcentagemRMI() {
+		return porcentagemRMI;
+	}
+	public void setPorcentagemRMI(float porcentagemRMI) {
+		this.porcentagemRMI = porcentagemRMI;
 	}
 	
 }
