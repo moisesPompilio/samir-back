@@ -89,7 +89,7 @@ public class CalcauloController {
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-			int contadorMes13salrio = 1;
+			int contadorMes13salrio = 0;
 
 			if (anoCalculo <= anoDip) {
 				while (anoCalculo != anoDip + 1) {
@@ -128,6 +128,15 @@ public class CalcauloController {
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
 					if (informacoes.isSalario13()) {
+						if (anoCalculo == anoDib && mesCalculo == mesDib) {
+							int diaDib = Integer.parseInt(arrayDib[0]);
+							if (diaDib <= 15) {
+								contadorMes13salrio++;
+							}
+						} else {
+							contadorMes13salrio++;
+						}
+					
 						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, contadorMes13salrio, correcaoAcumulada,
 								jurosAcumulado, porcentagemRmi);
 						if (calculoAdd != null) {
@@ -139,16 +148,8 @@ public class CalcauloController {
 							} else {
 								listCalculo.add(calculoAdd);
 							}
-							contadorMes13salrio = 1;
-						} else {
-							if (anoCalculo == anoDib && mesCalculo == mesDib) {
-								int diaDib = Integer.parseInt(arrayDib[0]);
-								if (diaDib <= 15) {
-									contadorMes13salrio++;
-								}
-							} else {
-								contadorMes13salrio++;
-							}
+							System.out.println("conatdor 13 + " + contadorMes13salrio);
+							contadorMes13salrio = 0;
 						}
 					}
 					// para o calculo
@@ -194,10 +195,10 @@ public class CalcauloController {
 	@PostMapping("/alcada")
 	public @ResponseBody Object alcada(@RequestBody InfoCalculo informacoes) {
 		try {
-			System.out.println("alcada");
-			System.out.println("alcada: " + informacoes.getDib());
-			System.out.println("alcada: " + informacoes.getDip());
-			System.out.println("alcada: " + informacoes.getAtulizacao());
+		// 	System.out.println("alcada");
+		// 	System.out.println("alcada: " + informacoes.getDib());
+		// 	System.out.println("alcada: " + informacoes.getDip());
+		// 	System.out.println("alcada: " + informacoes.getAtulizacao());
 			String[] arrayDib = informacoes.getDib().split("/");
 			int mesDib = Integer.parseInt(arrayDib[1]);
 			int anoDib = Integer.parseInt(arrayDib[2]);
@@ -255,9 +256,9 @@ public class CalcauloController {
 	@PostMapping("/beneficioAcumulado")
 	public @ResponseBody Object beneficioAcumulado(@RequestBody InfoCalculo informacoes) {
 		try {
-			System.out.println("AQUI");
-			System.out.println(informacoes);
-			System.out.println("salario: " + informacoes.getDib());
+			// System.out.println("AQUI");
+			// System.out.println(informacoes);
+			// System.out.println("salario: " + informacoes.getDib());
 			String[] arrayDib = informacoes.getDib().split("/");
 			int mesDib = Integer.parseInt(arrayDib[1]);
 			int anoDib = Integer.parseInt(arrayDib[2]);
@@ -460,14 +461,14 @@ public class CalcauloController {
 				int mesCorrecao = Integer.parseInt(data[1]);
 				int anoCorrecao = Integer.parseInt(data[0]);
 				if (mesCalculo == 2 && anoCalculo == 2022 && anoCorrecao > 2021) {
-					System.out.println("correcao acumuulada: " + correcaoAcumulada);
-					System.out.println("correcao acumuulada: " + mesAtualizacao);
-					System.out.println("correcao acumuulada: " + anoAtualizacao);
-					System.out.println("correcao acumuulada: " + mesAtualizacao);
-					System.out.println("correcao acumuulada: " + anoAtualizacao);
-					System.out.println("teste mes: " + mesCorrecao);
-					System.out.println("teste ano: " + anoCorrecao);
-					System.out.println("teste boolean: " + (mesCorrecao == mesCalculo && anoCalculo == anoCorrecao));
+					// System.out.println("correcao acumuulada: " + correcaoAcumulada);
+					// System.out.println("correcao acumuulada: " + mesAtualizacao);
+					// System.out.println("correcao acumuulada: " + anoAtualizacao);
+					// System.out.println("correcao acumuulada: " + mesAtualizacao);
+					// System.out.println("correcao acumuulada: " + anoAtualizacao);
+					// System.out.println("teste mes: " + mesCorrecao);
+					// System.out.println("teste ano: " + anoCorrecao);
+					// System.out.println("teste boolean: " + (mesCorrecao == mesCalculo && anoCalculo == anoCorrecao));
 				}
 				if (verificarPeriodo(mesCorrecao, anoCorrecao, mesAtualizacao, anoAtualizacao)) {
 					correcaoAcumulada *= listCorrecao.get(indexCorrecao).getTaxaCorrecao();
