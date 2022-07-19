@@ -57,11 +57,13 @@ public class CalcauloController {
 			int anoIncioJuros = 0;
 			if (informacoes.getIncioJuros() != null) {
 				String[] arrayInicioJuros = informacoes.getIncioJuros().split("/");
-				mesIncioJuros = Integer.parseInt(arrayInicioJuros[1]) - 1;
-				anoIncioJuros = Integer.parseInt(arrayInicioJuros[2]);
-				if (mesIncioJuros == 0) {
-					mesIncioJuros = 12;
-					anoIncioJuros--;
+				if (arrayInicioJuros.length > 1) {
+					mesIncioJuros = Integer.parseInt(arrayInicioJuros[1]) - 1;
+					anoIncioJuros = Integer.parseInt(arrayInicioJuros[2]);
+					if (mesIncioJuros == 0) {
+						mesIncioJuros = 12;
+						anoIncioJuros--;
+					}
 				}
 
 			}
@@ -74,7 +76,10 @@ public class CalcauloController {
 			List<TaxaReajuste> listReajuste = reajusteRepositorio.findAll();
 			List<TaxaDeCorrecao> listCorrecao = correcaoRepository
 					.findByTipoOrderByDataAsc(informacoes.getTipoCorrecao());
-			List<Juros> listJuros = jurosRepositorio.findByTipoOrderByDataAsc(informacoes.getTipoJuros());
+			List<Juros> listJuros = new ArrayList<Juros>();
+			if (informacoes.isJuros()) {
+				listJuros = jurosRepositorio.findByTipoOrderByDataAsc(informacoes.getTipoJuros());
+			}
 
 			float correcaoAcumulada = 1;
 			float jurosAcumulado = 0;
@@ -83,7 +88,7 @@ public class CalcauloController {
 			int mesCalculo = mesDib;
 			int anoCalculo = anoDib;
 			float rmi = informacoes.getRmi();
-			float porcentagemRmi = (informacoes.getPorcentagemRMI() != 0)? informacoes.getPorcentagemRMI() : 100;
+			float porcentagemRmi = (informacoes.getPorcentagemRMI() != 0) ? informacoes.getPorcentagemRMI() : 100;
 			float reajuste = 1;
 			int confirmadoData = 0;
 
@@ -124,7 +129,8 @@ public class CalcauloController {
 					}
 
 					// estancia o objeto e adiciona na lista
-					Calculo calculoAdd = new Calculo(dataCalculo, reajuste, rmi, correcaoAcumulada, jurosAcumulado, porcentagemRmi);
+					Calculo calculoAdd = new Calculo(dataCalculo, reajuste, rmi, correcaoAcumulada, jurosAcumulado,
+							porcentagemRmi);
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
 					if (informacoes.isSalario13()) {
@@ -136,7 +142,7 @@ public class CalcauloController {
 						} else {
 							contadorMes13salrio++;
 						}
-					
+
 						calculoAdd = salario13(mesCalculo, anoCalculo, rmi, contadorMes13salrio, correcaoAcumulada,
 								jurosAcumulado, porcentagemRmi);
 						if (calculoAdd != null) {
@@ -195,10 +201,10 @@ public class CalcauloController {
 	@PostMapping("/alcada")
 	public @ResponseBody Object alcada(@RequestBody InfoCalculo informacoes) {
 		try {
-		// 	System.out.println("alcada");
-		// 	System.out.println("alcada: " + informacoes.getDib());
-		// 	System.out.println("alcada: " + informacoes.getDip());
-		// 	System.out.println("alcada: " + informacoes.getAtulizacao());
+			// System.out.println("alcada");
+			// System.out.println("alcada: " + informacoes.getDib());
+			// System.out.println("alcada: " + informacoes.getDip());
+			// System.out.println("alcada: " + informacoes.getAtulizacao());
 			String[] arrayDib = informacoes.getDib().split("/");
 			int mesDib = Integer.parseInt(arrayDib[1]);
 			int anoDib = Integer.parseInt(arrayDib[2]);
@@ -273,7 +279,7 @@ public class CalcauloController {
 			int mesCalculo = mesDib;
 			int anoCalculo = anoDib;
 			float rmi = informacoes.getRmi();
-			float porcentagemRmi = (informacoes.getPorcentagemRMI() != 0)? informacoes.getPorcentagemRMI() : 100;
+			float porcentagemRmi = (informacoes.getPorcentagemRMI() != 0) ? informacoes.getPorcentagemRMI() : 100;
 			float reajuste = 1;
 			int confirmadoData = 0;
 
@@ -374,7 +380,7 @@ public class CalcauloController {
 					dateFormat);
 			float jurosAcumulado = calculoJuros(mesDib, anoDib, listJuros, mesAtualizacao, anoAtualizacao,
 					mesIncioJuros, anoIncioJuros, dateFormat);
-			Calculo calculoAdd = new Calculo(informacoes.getDib(), 0, 0, correcaoAcumulada, jurosAcumulado,0);
+			Calculo calculoAdd = new Calculo(informacoes.getDib(), 0, 0, correcaoAcumulada, jurosAcumulado, 0);
 
 			return calculoAdd;
 		} catch (Exception e) {
@@ -468,7 +474,8 @@ public class CalcauloController {
 					// System.out.println("correcao acumuulada: " + anoAtualizacao);
 					// System.out.println("teste mes: " + mesCorrecao);
 					// System.out.println("teste ano: " + anoCorrecao);
-					// System.out.println("teste boolean: " + (mesCorrecao == mesCalculo && anoCalculo == anoCorrecao));
+					// System.out.println("teste boolean: " + (mesCorrecao == mesCalculo &&
+					// anoCalculo == anoCorrecao));
 				}
 				if (verificarPeriodo(mesCorrecao, anoCorrecao, mesAtualizacao, anoAtualizacao)) {
 					correcaoAcumulada *= listCorrecao.get(indexCorrecao).getTaxaCorrecao();
@@ -490,7 +497,8 @@ public class CalcauloController {
 		Calculo salario13;
 		rmi = rmi * contadorMes13salrio / 12;
 		if (mesCalculo == 12) {
-			salario13 = new Calculo(("13Salario/12/" + anoCalculo), 1, rmi, correcaoAcumulada, jurosAcumulado, porcentagemRmi);
+			salario13 = new Calculo(("13Salario/12/" + anoCalculo), 1, rmi, correcaoAcumulada, jurosAcumulado,
+					porcentagemRmi);
 			return salario13;
 		}
 		return null;
