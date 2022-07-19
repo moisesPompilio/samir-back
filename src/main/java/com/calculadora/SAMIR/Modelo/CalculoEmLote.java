@@ -82,6 +82,13 @@ public class CalculoEmLote {
     private String atualizacao;
     private String dibAnterior;
     private String url;
+    private String tipo;
+
+    private float[] porcentagemRmiBeneficioAcumulado;
+    private boolean[] salario13BeneficioAcumulado;
+    private boolean[] salarioMinimoBeneficioAcumulado;
+    private boolean[] limiteMinimoMaximoBeneficioAcumulado;
+
 
     public int getUsuario() {
         return usuario;
@@ -611,6 +618,46 @@ public class CalculoEmLote {
 
     public void setPorcentagemRMI(float porcentagemRMI) {
         this.porcentagemRMI = porcentagemRMI;
+    }
+
+    public float[] getPorcentagemRmiBeneficioAcumulado() {
+        return porcentagemRmiBeneficioAcumulado;
+    }
+
+    public void setPorcentagemRmiBeneficioAcumulado(float[] porcentagemRmiBeneficioAcumulado) {
+        this.porcentagemRmiBeneficioAcumulado = porcentagemRmiBeneficioAcumulado;
+    }
+
+    public boolean[] getSalario13BeneficioAcumulado() {
+        return salario13BeneficioAcumulado;
+    }
+
+    public void setSalario13BeneficioAcumulado(boolean[] salario13BeneficioAcumulado) {
+        this.salario13BeneficioAcumulado = salario13BeneficioAcumulado;
+    }
+
+    public boolean[] getSalarioMinimoBeneficioAcumulado() {
+        return salarioMinimoBeneficioAcumulado;
+    }
+
+    public void setSalarioMinimoBeneficioAcumulado(boolean[] salarioMinimoBeneficioAcumulado) {
+        this.salarioMinimoBeneficioAcumulado = salarioMinimoBeneficioAcumulado;
+    }
+
+    public boolean[] getLimiteMinimoMaximoBeneficioAcumulado() {
+        return limiteMinimoMaximoBeneficioAcumulado;
+    }
+
+    public void setLimiteMinimoMaximoBeneficioAcumulado(boolean[] limiteMinimoMaximoBeneficioAcumulado) {
+        this.limiteMinimoMaximoBeneficioAcumulado = limiteMinimoMaximoBeneficioAcumulado;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 
