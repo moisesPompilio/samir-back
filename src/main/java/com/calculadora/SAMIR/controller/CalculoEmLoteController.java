@@ -20,7 +20,7 @@ public class CalculoEmLoteController {
     @GetMapping("/listar")
     public @ResponseBody
     List<CalculoEmLote> listar() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdDesc();
     }
     @PostMapping("/ProcurarPorName")
     public @ResponseBody
@@ -81,13 +81,12 @@ public class CalculoEmLoteController {
 
     }
 
-    @DeleteMapping("/deletar")
-    public @ResponseBody CalculoEmLote deletar(@RequestBody CalculoEmLote calculoEmLote){
+    @DeleteMapping("/deletar/{id}")
+    public @ResponseBody void deletar( @PathVariable Integer id){
         try {
-            repository.delete(calculoEmLote);
-            return calculoEmLote;
+            repository.delete(repository.getById(id));
         } catch (Exception e) {
-            return null;
+            //return e;
         }
 
 

@@ -1,8 +1,6 @@
 package com.calculadora.SAMIR.Repositorio;
 
 import com.calculadora.SAMIR.Modelo.CalculoEmLote;
-import com.calculadora.SAMIR.Modelo.TaxaDeCorrecao;
-import com.calculadora.SAMIR.Modelo.UsuarioModelo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,6 +13,9 @@ public interface CalculoEmLoteRepository extends JpaRepository <CalculoEmLote, I
     CalculoEmLote findByNumeroDoProcesso(String numeroDoProcesso);
 
     List<CalculoEmLote> findByUsuario(int usuario);
+
+
+    List<CalculoEmLote> findAllByOrderByIdDesc();
 
     //List<CalculoEmLote> findByUsuario(UsuarioModelo usuario);
 
