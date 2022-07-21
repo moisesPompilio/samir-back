@@ -2,7 +2,13 @@ package com.calculadora.SAMIR.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,10 +139,20 @@ public class CalcauloController {
 							porcentagemRmi);
 					reajuste = 1;
 					listCalculo.add(calculoAdd);
+					// Instant instant = dt.toInstant();
+					// Instant nextDay = instant.plus(1, ChronoUnit.DAYS);
+					// System.out.println("Tomorrow: " + nextDay);
+
+					// System.out.println("Daqui há dez dias: " + dataFormatada.format(a));
 					if (informacoes.isSalario13()) {
 						if (anoCalculo == anoDib && mesCalculo == mesDib) {
+							DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+							LocalDate dt = LocalDate.parse(informacoes.getDib(), parser);
+							LocalDate diaSeguinte = dt.plusDays(15);
 							int diaDib = Integer.parseInt(arrayDib[0]);
-							if (diaDib <= 15) {
+							if (Integer.parseInt(parser.format(diaSeguinte).split("/")[0]) == 31) {
+								contadorMes13salrio++;
+							} else if (diaDib <= 15) {
 								contadorMes13salrio++;
 							}
 						} else {
@@ -154,7 +170,6 @@ public class CalcauloController {
 							} else {
 								listCalculo.add(calculoAdd);
 							}
-							System.out.println("conatdor 13 + " + contadorMes13salrio);
 							contadorMes13salrio = 0;
 						}
 					}
@@ -520,7 +535,7 @@ public class CalcauloController {
 
 				if (mesReajuste == mesCalculo && anoCalculo == anoReajuste) {
 					reajusteAcumulado = (float) listReajuste.get(i).getReajusteAcumulado();
-					return (float) (listReajuste.get(i).getReajusteAcumulado() / 100) + 1;
+					return (float) (listReajuste.get(i).getReajusteAcumulado()) + 1;
 				}
 
 			} // termino do laco for do reajuste;
